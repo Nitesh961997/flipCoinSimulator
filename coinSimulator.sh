@@ -1,17 +1,32 @@
-#!/bin/bash -x
+#!/bin/bash
 heads=0 
 tails=0 
-for (( toss=1; toss<=100; toss++ ))
+while [[ $heads -lt 21 && $tails -lt 21 ]]
 	do
 		result=$((RANDOM%2))
 		if [ $result -eq 1 ]
 			then 
-				echo tails is winner
+				echo tails 
 				((tails++))
 		else
-				echo heads is winner
+				echo heads
 				((heads++))
 		fi
+		if [ $heads -gt $tails ]
+			then
+				echo heads is leading by $(($heads-$tails))
+			elif [ $heads -lt $tails ]
+				then
+				echo tails is leading by $(($tails-$heads))
+			else
+				echo match is currently draw			
+		fi
 	done
-echo tails wins-$heads
-echo heads wins-$tails
+echo tails wins-$tails
+echo heads wins-$heads
+if [ $heads -gt $tails ]
+	then
+		echo heads wins the Competition
+	else 
+		echo tails wins the Competition
+fi
